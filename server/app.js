@@ -7,7 +7,7 @@ const http = require('http');
 const https = require('https')
 // const https = require('https').globalAgent.options.ca = require('ssl-root-cas/latest').create();
 const socketio = require('socket.io');
-const port = process.env.PORT;
+const port = process.env.PORT || 8000;
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
