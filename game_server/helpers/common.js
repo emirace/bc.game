@@ -268,7 +268,7 @@ exports.activateWallet = (data, wal, callback) => {
       amount: amount,
       status: status,
     };
-    if (curr == "JB") {
+    if (curr == "JBC") {
       obj.amount = 10000;
       obj.status = 0;
       obj.locked = 0;
@@ -302,7 +302,7 @@ exports.gamecount = (data, id, callback) => {
       BUSD: 0,
       BUSD_win: 0,
       BUSD_betamt: 0,
-      JB: 0,
+      JBC: 0,
       JB_win: 0,
       JB_betamt: 0,
     });
@@ -362,12 +362,12 @@ exports.wagecountUpdate = (
         var rgc = currency == "RGC" ? marketPrc : 0;
         var bnb = currency == "BNB" ? marketPrc : 0;
         var busd = currency == "BUSD" ? marketPrc : 0;
-        var jb = currency == "JB" ? marketPrc : 0;
+        var jb = currency == "JBC" ? marketPrc : 0;
 
         var rgcBet = currency == "RGC" ? betamt : 0;
         var bnbBet = currency == "BNB" ? betamt : 0;
         var busdBet = currency == "BUSD" ? betamt : 0;
-        var jbBet = currency == "JB" ? betamt : 0;
+        var jbBet = currency == "JBC" ? betamt : 0;
 
         users.findOne(
           { _id: userId, "gamecount.name": game },
@@ -417,7 +417,7 @@ exports.wagecountUpdate = (
           }
         }*/
             if (doc) {
-              if (currency != "JB") {
+              if (currency != "JBC") {
                 users.updateOne(
                   { _id: userId, "gamecount.name": game },
                   {
@@ -502,7 +502,7 @@ exports.wagecountUpdate = (
                           { _id: userId, "gamecount.name": game },
                           {
                             $inc: {
-                              "gamecount.$.JB": Number(amount.toFixed(4)),
+                              "gamecount.$.JBC": Number(amount.toFixed(4)),
                               "gamecount.$.JB_betamt": Number(jbBet),
                             },
                           }
@@ -536,7 +536,7 @@ exports.wagecountUpdate = (
                     BUSD: 0,
                     BUSD_win: 0,
                     BUSD_betamt: 0,
-                    JB: 0,
+                    JBC: 0,
                     JB_win: 0,
                     JB_betamt: 0,
                   });
@@ -552,7 +552,7 @@ exports.wagecountUpdate = (
                           { gamecount: 1, _id: 1, wagered: 1 },
                           function (usrerr, usrdoc) {
                             if (usrdoc) {
-                              if (currency != "JB") {
+                              if (currency != "JBC") {
                                 users.updateOne(
                                   { _id: userId, "gamecount.name": game },
                                   {
@@ -675,7 +675,7 @@ exports.wagecountUpdate = (
                                           },
                                           {
                                             $inc: {
-                                              "gamecount.$.JB": Number(
+                                              "gamecount.$.JBC": Number(
                                                 amount.toFixed(4)
                                               ),
                                               "gamecount.$.JB_betamt": Number(
@@ -716,7 +716,7 @@ exports.gamecountUpdate = (userId, game, status, currency, callback) => {
   var rgc = currency == "RGC" ? 1 : 0;
   var bnb = currency == "BNB" ? 1 : 0;
   var busd = currency == "BUSD" ? 1 : 0;
-  var jb = currency == "JB" ? 1 : 0;
+  var jb = currency == "JBC" ? 1 : 0;
   if (status == "winner") {
     users.updateOne(
       { _id: userId, "gamecount.name": game },
@@ -1148,12 +1148,12 @@ GiveVIPBonus = exports.GiveVIPBonus = function (userid) {
       var WageRGC = resData.filter((val) => val.currency == "RGC");
       var WageBNB = resData.filter((val) => val.currency == "BNB");
       var WageBUSD = resData.filter((val) => val.currency == "BUSD");
-      var WageJB = resData.filter((val) => val.currency == "JB");
+      var WageJB = resData.filter((val) => val.currency == "JBC");
       var wage = {
         RGC: WageRGC[0].market_price,
         BNB: WageBNB[0].market_price,
         BUSD: WageBUSD[0].market_price,
-        JB: WageJB[0].market_price,
+        JBC: WageJB[0].market_price,
       };
       users
         .aggregate([
@@ -1281,12 +1281,12 @@ GetTotalWager = exports.GetTotalWager = function (userid, callback) {
       var WageRGC = resData.filter((val) => val.currency == "RGC");
       var WageBNB = resData.filter((val) => val.currency == "BNB");
       var WageBUSD = resData.filter((val) => val.currency == "BUSD");
-      var WageJB = resData.filter((val) => val.currency == "JB");
+      var WageJB = resData.filter((val) => val.currency == "JBC");
       var wage = {
         RGC: WageRGC[0].market_price,
         BNB: WageBNB[0].market_price,
         BUSD: WageBUSD[0].market_price,
-        JB: WageJB[0].market_price,
+        JBC: WageJB[0].market_price,
       };
       users
         .aggregate([
