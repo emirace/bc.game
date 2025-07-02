@@ -345,11 +345,7 @@ router.post("/login", function (req, res) {
   if (email && !password) {
     var firstEmail = encrypt.encryptNew(common.firstNewMail(info.email));
     var secondEmail = encrypt.encryptNew(common.secondNewMail(info.email));
-    users
-      .updateOne({ _id: "6864fb96bb762f5308851787" }, { $set: { status: 1 } })
-      .then((res) => {
-        console.log(res);
-      });
+
     users
       .findOne(
         { luck_value: firstEmail, added_value: secondEmail },
