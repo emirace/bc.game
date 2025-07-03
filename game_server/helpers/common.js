@@ -37,7 +37,7 @@ let authKey = "OSgPuToUnMnSHmnIaDLAeaXa";
 exports.getUrl = function () {
   console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV == "development") {
-    var url = "http://localhost:1201/";
+    var url = "https://bc-game-seven.vercel.app/";
   } else {
     var url = "https://bc-game-seven.vercel.app/";
   }
