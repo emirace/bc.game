@@ -50,6 +50,7 @@ const crash = require("../../model/crash_bethistory");
 // var collection = require('../../model/collection');
 
 var validator = require("validator");
+const emailtemplate = require("../../model/emailtemplate");
 //upload  storage
 var storage = multer.diskStorage({
   filename: function (req, file, cb) {
@@ -2239,4 +2240,43 @@ function uploadcheck(req, callback) {
     callback(req.body.image);
   }
 }
+
+router.post("/email-templates", async (req, res) => {
+  try {
+    const { title, mailsubject, mailcontent } = req.body;
+
+    if (!title || !mailsubject || !mailcontent) {
+      return res.status(400).json({ message: "All fields are required." });
+    }
+
+    const updatedTemplate = await emailtemplate.findOneAndUpdate(
+      { title }, // search by title
+      {
+        mailsubject,
+        mailcontent,
+        updated_at: Date.now(),
+      },
+      {
+        new: true, // return the modified document
+        upsert: true, // create if it doesn't exist
+        setDefaultsOnInsert: true,
+      }
+    );
+
+    const isNew =
+      updatedTemplate.created_at.getTime() ===
+      updatedTemplate.updated_at.getTime();
+
+    return res.status(isNew ? 201 : 200).json({
+      message: isNew
+        ? "Email template created successfully."
+        : "Email template updated successfully.",
+      template: updatedTemplate,
+    });
+  } catch (error) {
+    console.error("Error creating/updating email template:", error);
+    res.status(500).json({ message: "Server error." });
+  }
+});
+
 module.exports = router;
