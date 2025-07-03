@@ -195,6 +195,7 @@ var orgArrVal = [
   "http://localhost:1201",
   "https://mhrwsoyugc.rollgame.io",
   "http://192.168.1.110:1201",
+  "https://bc-game-8yju.vercel.app",
 ];
 
 exports.apiMiddleware = (req, res, next) => {
