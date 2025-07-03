@@ -38,10 +38,10 @@ exports.getUrl = function () {
   console.log(process.env.NODE_ENV);
   if (process.env.NODE_ENV == "development") {
     var url = "http://localhost:1201/";
-  } else if (process.env.NODE_ENV == "production") {
+  } else {
+    var url = "https://bc-game-seven.vercel.app/";
   }
-  // var url = 'https://rollgame.io/';
-  // return url;
+  return url;
 };
 
 exports.singleUploadcheck = function (req, callback) {
@@ -931,7 +931,7 @@ exports.originMiddle = (req, res, next) => {
 };
 
 exports.checkRefer = function (refId, callback) {
-  if (refId != "") {
+  if (refId && refId != "") {
     users
       .find({ referr_id: refId })
       .countDocuments()
