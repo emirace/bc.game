@@ -1068,6 +1068,7 @@ exports.getcount = function (userid, callback) {
         callback(resp);
       }
       if (err) {
+        console.log(err);
         callback(0);
       }
     });

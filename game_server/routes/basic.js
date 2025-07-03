@@ -1471,6 +1471,7 @@ router.get("/getUsrinfo", common.tokenMiddleware, (req, res) => {
           { $group: { _id: null, finalTotal: { $sum: "$convertedTotal" } } },
         ])
         .exec(function (err, resData) {
+          console.log("userInfo", resData);
           if (resData.length == 0) {
             gamelist
               .find({}, { _id: 0, game_name: 1 })
@@ -1499,18 +1500,19 @@ router.get("/getUsrinfo", common.tokenMiddleware, (req, res) => {
               });
           } else {
             common.getcount(userid, function (response) {
-              if (response != 0) {
+              console.log(response != 0);
+              if (response === 0) {
+                res.json({
+                  success: 0,
+                  status: 5,
+                  msg: "Something went wrong",
+                });
+              } else {
                 res.json({
                   success: 1,
                   status: 4,
                   msg: response,
                   wages: resData[0].finalTotal,
-                });
-              } else {
-                res.json({
-                  success: 0,
-                  status: 5,
-                  msg: "Something went wrong",
                 });
               }
             });
